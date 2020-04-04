@@ -5,34 +5,16 @@ import * as http from 'http';
 import * as https from 'https';
 import * as lineReader from 'line-reader';
 import { Type } from '@angular/core';
+import { Photo } from 'src/app/interface/Photo';
+
+
+const moment = require( 'moment');
 const protocols: any ={
     'http': http, 
     'https': https
 }
 
-interface Photo {
-    img_src:    string,
-    earth_date: string,
-    rover:      Rover    
-}
 
-interface Camera {
-    name: string;
-    full_name: string;
-
-}    
-
-interface Rover{
-    id:             number,
-    name:           string,
-    landing_date:   string,
-    launch_date:    string,
-    status:         string,
-    max_sol:        number,
-    max_date:       string,
-    total_photos:   number,
-    cameras:        Array<Camera>
-} 
 export class ImageHandler{
     private _photos:Array<Photo>; 
 
@@ -44,22 +26,20 @@ export class ImageHandler{
         return this._photos;
     }
     public  getImages():void {
-        const self = this;
-
-        lineReader.eachLine( './dates.txt', ( dateFromFile, isLast, cb) => {
-            const date: Date = new Date( dateFromFile );
+        lineReader.eachLine( './dates.txt', ( dateFromFile, isLast) => {
+            // console.log( dateFromFile );
+            const date: Date = new Date( Date.parse(dateFromFile) );
             //if the line of text used to instantiate this text object is not a valid date - then skip it;
             if( isNaN(date.getDate()) ){
                 console.error( 'Invalid Date', dateFromFile)
                 return;
             }
 
-            const dateString: string = new Date().toISOString().split('T')[0];
-            const url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-6-3&api_key=eHL7pqlZvaeqMsTn2bda4Ibq4WgFfhkTHhZ3Fxbr';
-            //  const url =  `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=eHL7pqlZvaeqMsTn2bda4Ibq4WgFfhkTHhZ3Fxbr&
-            //    earthDate=${date}
-            //    &camera=all
-            //    &page`;
+            const dateString: string = date.toISOString().split('T')[0];
+            //const url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-6-3&api_key=eHL7pqlZvaeqMsTn2bda4Ibq4WgFfhkTHhZ3Fxbr';
+              const url = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${dateString}&api_key=eHL7pqlZvaeqMsTn2bda4Ibq4WgFfhkTHhZ3Fxbr`;
+
+
             https.get( url, (response:any ) => {
                 var body = '';
                 response.on('data', (chunk: any) => {
@@ -77,11 +57,12 @@ export class ImageHandler{
                     
                 });
             }).on( 'error', (e: any) => {
-                console.log( e )
+                console.log( e, 'something went wrong ' )
             });
     });
      function getFile( url: string, filename:string, photo: Photo){
         const dirPath: string = './dist/motorola-test/browser/images'; 
+
         if( !fs.existsSync(dirPath)){
            fs.mkdirSync(dirPath);
          }

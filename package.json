@@ -27,8 +27,11 @@
         "@angular/router": "~9.1.0",
         "@nguniversal/express-engine": "^9.1.0",
         "@types/line-reader": "0.0.28",
+        "@types/moment": "^2.13.0",
+        "bootstrap": "^4.4.1",
         "express": "^4.15.2",
         "line-reader": "^0.4.0",
+        "moment": "^2.24.0",
         "rxjs": "~6.5.4",
         "tslib": "^1.10.0",
         "zone.js": "~0.10.2"
