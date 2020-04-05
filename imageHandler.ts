@@ -89,7 +89,7 @@ export class ImageHandler{
              }
          })
          .on('error', (err: any) => {
-             file.unlink( filepath );
+             console.log( err )
          })
          .end();
       }
