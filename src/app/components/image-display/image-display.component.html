@@ -1,0 +1,18 @@
+<div class="container wrapper">
+    <div class="row">
+        <ng-container *ngIf="images | async; let images">
+            <ng-container *ngIf="!images.length">
+                <h1>Loading Images....</h1>
+            </ng-container>
+        </ng-container>
+
+
+
+        <div class="col-lg-3 col-sm-6 img-container" *ngFor="let photo of images | async">
+            <div class="img-wrapper">
+                <img [src]="photo.img_src" />
+            </div>
+            <small>{{photo.id}} | {{photo.earth_date}} | {{photo.rover.name}} | {{photo.camera.name}}</small>
+        </div>
+    </div>
+</div>

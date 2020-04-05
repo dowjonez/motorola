@@ -1,0 +1,23 @@
+:host {
+    margin-top: 200px;
+    display: block;
+    .img-wrapper {
+        height: 100px;
+        overflow: hidden;
+    }
+    img {
+        display: block;
+        width: 100%;
+    }
+    h1 {
+        display: block;
+        text-align: center;
+        width: 100%;
+        color: #a5a5a5;
+    }
+    .wrapper {
+        height: calc(100vh - 400px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
