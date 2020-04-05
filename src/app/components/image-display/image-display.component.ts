@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ImageDisplayComponent implements OnInit {
   public images: Observable<Array<Photo>> = of([]);
-  public _activePhoto:Photo;
+
   constructor(
     private svc: ImageDataService
   ) { }
@@ -19,5 +19,5 @@ export class ImageDisplayComponent implements OnInit {
   ngOnInit(): void {
     this.images = this.svc.getImages();
   }
- 
+
 }

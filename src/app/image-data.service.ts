@@ -13,7 +13,7 @@ export class ImageDataService {
   public get images() {
     return this._images.asObservable();
   }
-  constructor(private http:HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
 
@@ -21,9 +21,9 @@ export class ImageDataService {
     this.http.get( '/imagedata', {
       headers: {
         accept: 'application/json'
-      }
+      },
     })
-    .pipe( 
+    .pipe(
       take(1)
     )
     .subscribe((res: Array<Photo>) => {

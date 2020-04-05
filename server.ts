@@ -14,13 +14,11 @@ import * as https from 'https';
 import * as lineReader from 'line-reader';
 import {ImageHandler } from 'imageHandler';
 
-//dowload the images 
+// dowload the images
 const imageHandler: ImageHandler = new ImageHandler();
 
 imageHandler.getImages();
 
-// Start the server
-const port = Number(process.env.PORT || 3000);
 
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -33,7 +31,7 @@ export function app() {
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,
   }));
-  
+
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
@@ -44,16 +42,16 @@ export function app() {
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y'
   }));
-  
- 
-   
-  
+
+
+
+
   // All regular routes use the Universal engine
-   server.get('*', (req, res) => {
-    if( req.url != '/imagedata'){
+  server.get('*', (req, res) => {
+    if ( req.url !== '/imagedata'){
       res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
-    }else { 
-      res.send( JSON.stringify( imageHandler.photos ));
+    }else {
+      res.status(200).send( JSON.stringify( imageHandler.photos ));
     }
    });
   return server;

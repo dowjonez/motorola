@@ -5,7 +5,7 @@ import { ImageDisplayComponent } from './components/image-display/image-display.
 
 const routes: Routes = [
   {
-    path:'**', component: ImageDisplayComponent
+    path: '**', component: ImageDisplayComponent
   }
 ];
 
