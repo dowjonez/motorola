@@ -8,7 +8,7 @@ Run `npm i`
 
 
 
-## Development server
+## Production server
 
 Run `npm run build:ssr && npm run serve:ssr` to build and serve the application on localhost:4000
 
